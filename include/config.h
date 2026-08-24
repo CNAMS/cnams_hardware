@@ -60,5 +60,6 @@
 #define SIM_STABILIZE_TICKS    7    // Jitter cycles before stable lock
 #define SIM_DEFAULT_WEIGHT_G   8540 // 8.54 kg
 #define SIM_DEFAULT_LENGTH_MM  725  // 72.5 cm
+#define FORCE_SIMULATION_MODE  true // Enabled for standalone ESP32 DevKit testing
 
 #endif // CONFIG_H

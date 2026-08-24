@@ -25,6 +25,10 @@ SensorManager::SensorManager()
       _isStable(false) {}
 
 void SensorManager::begin() {
+#if FORCE_SIMULATION_MODE
+    Serial.println("[Sensors] Force Simulation Mode enabled. Smart Anthropometry on BOOT button active.");
+    _physicalSensorsDetected = false;
+#else
     // 1. Initialize HX711 (if attached)
     _hx711.begin(PIN_HX711_DT, PIN_HX711_SCK);
     
@@ -38,6 +42,7 @@ void SensorManager::begin() {
         Serial.println("[Sensors] No physical HX711 detected. Enabling Smart Simulation on BOOT button.");
         _physicalSensorsDetected = false;
     }
+#endif
 
     // 2. Initialize Quadrature Rotary Encoder (if attached)
     pinMode(PIN_ENC_PHASE_A, INPUT_PULLUP);
@@ -111,8 +116,12 @@ void SensorManager::update() {
             Serial.printf("[Sensors] Measurement LOCKED: Weight = %d g, Height = %d mm\n", 
                           _currentWeightG, _currentHeightMm);
         }
-    } else if (_physicalSensorsDetected) {
-        // Read live from real sensors
+    } else if (_physicalSensorsDetected && !_isStable) {
+        // Only read from physical sensors when NOT in a locked/stable state.
+        // This prevents floating ADC pins from overwriting simulation lock values
+        // with 0 immediately after the capture cycle completes.
+        // In real-hardware mode, stability tracking would reset _isStable=false
+        // when the load changes, allowing continuous sensor reads again.
         if (_hx711.is_ready()) {
             float rawWeight = _hx711.get_units(2);
             _currentWeightG = (int32_t)(rawWeight * 1000.0f); // Convert kg to g
