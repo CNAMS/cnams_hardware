@@ -27,16 +27,25 @@
 #define PIN_ENC_PHASE_B       7   // Quadrature Rotary Encoder Phase B
 
 // ============================================================================
-// 2. BLE (BLUETOOTH LOW ENERGY) CONFIGURATION
-// ============================================================================
+// Device Metadata
+#define FIRMWARE_VERSION      "v1.3.0"
+#define HARDWARE_REVISION     "ESP32-S3-N16R8"
+#define MANUFACTURER_NAME     "Ankur CGMS"
+#define MODEL_NUMBER          "ANKUR-SCALE-v1"
 
 // Device Name advertised over BLE (Must start with "CGMS" to match cnams_app prefix)
-#define BLE_DEVICE_NAME       "CGMS-ANKUR-S3"
+#define BLE_DEVICE_NAME_DEFAULT "CGMS-ANKUR-S3"
 
 // GATT 128-bit UUIDs
-#define BLE_SERVICE_UUID      "4FAFC201-1FB5-459E-8FCC-C5C9C331914B"
-#define BLE_CHAR_MEASURE_UUID "BEB5483E-36E1-4688-B7F5-EA07361B26A8" // Notify
-#define BLE_CHAR_CONTROL_UUID "BEB5483F-36E1-4688-B7F5-EA07361B26A8" // Write/Read (Tare/Cal)
+#define BLE_SERVICE_UUID          "4FAFC201-1FB5-459E-8FCC-C5C9C331914B"
+#define BLE_CHAR_MEASURE_UUID     "BEB5483E-36E1-4688-B7F5-EA07361B26A8" // Notify
+#define BLE_CHAR_CONTROL_UUID     "BEB5483F-36E1-4688-B7F5-EA07361B26A8" // Write/Read (Control/Tare/Cal)
+#define BLE_CHAR_CONFIG_UUID      "BEB54843-36E1-4688-B7F5-EA07361B26A8" // Read/Write/Notify (Device Info & NVS Config)
+
+// BLE OTA Service & Characteristics
+#define BLE_OTA_SERVICE_UUID      "BEB54840-36E1-4688-B7F5-EA07361B26A8"
+#define BLE_OTA_CHAR_CONTROL_UUID "BEB54841-36E1-4688-B7F5-EA07361B26A8" // Write/Notify (OTA Begin/End/Status)
+#define BLE_OTA_CHAR_DATA_UUID    "BEB54842-36E1-4688-B7F5-EA07361B26A8" // Write Without Response (Firmware Chunks)
 
 // ============================================================================
 // 3. FROZEN PACKET PROTOCOL SPECIFICATION (11 BYTES, BIG-ENDIAN)
