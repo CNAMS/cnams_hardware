@@ -117,10 +117,9 @@ void loop() {
         AnthropometryReading reading = sensorManager.getCurrentReading();
         displayOled.render(
             bleManager.isConnected(),
-            reading.weightG,
-            reading.heightMm,
-            reading.isMeasuring,
-            reading.isOverallStable
+            reading.weightG,    reading.weightStable,
+            reading.heightMm,   reading.heightStable,
+            reading.isMeasuring
         );
     }
 
