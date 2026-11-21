@@ -28,7 +28,7 @@
 
 // ============================================================================
 // Device Metadata
-#define FIRMWARE_VERSION      "v1.3.0"
+#define FIRMWARE_VERSION      "v1.5.0"
 #define HARDWARE_REVISION     "ESP32-S3-N16R8"
 #define MANUFACTURER_NAME     "Ankur CGMS"
 #define MODEL_NUMBER          "ANKUR-SCALE-v1"
